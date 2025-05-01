@@ -14,6 +14,7 @@
 
 ## 🔥News
 
+- *2025-05-01*: UGPhysics is accepted to ICML 2025.
 - *2025-02-01*: We have released the UGPhysics dataset and Our Paper on Arxiv.
 
 ------
