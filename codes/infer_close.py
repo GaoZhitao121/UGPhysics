@@ -239,6 +239,8 @@ if __name__ == "__main__":
 
     if args.subject == "all":
         for sub in SUB_LIST:
+            global all_get_data
+            all_get_data = []
             out_fn = os.path.join(out_dir, sub + ".json")
             if not os.path.exists(out_fn):
                 print(f"Start evaluating {args.model.split('/')[-1]} on {sub}!")
@@ -246,9 +248,18 @@ if __name__ == "__main__":
                     dataset_path=os.path.join("data", sub),
                     output_path=out_fn,
                     prompt=args.prompt,
-                    nproc=args.nproc)
+                    nproc=args.nproc,
+                    max_tokens=args.max_tokens,
+                    temperature=args.temperature)
             else:
-                print(f"{args.model.split('/')[-1]} on {sub} already exist!")
+                #print(f"{args.model.split('/')[-1]} on {sub} already exist!")
+                generate(model_path=args.model,
+                    dataset_path=out_fn,
+                    output_path=out_fn,
+                    prompt=args.prompt,
+                    nproc=args.nproc,
+                    max_tokens=args.max_tokens,
+                    temperature=args.temperature)
     else:
         out_fn = os.path.join(out_dir, args.subject + ".json")
         if not os.path.exists(out_fn):
