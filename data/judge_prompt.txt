@@ -427,7 +427,7 @@ Thus, the student's answer is correct.
 
 <physics solution>
 **Question**:
-{problem}
+{{problem}}
 
 **Reference Solution**:
 {{RS}}
