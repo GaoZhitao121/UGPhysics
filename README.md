@@ -36,7 +36,7 @@ Remember to export your keys as mentioned above.
 python codes/eval.py --model_path ${MODEL} --subject ${SUBJECT} 
 ```
 
-
+require antlr4-python3-runtime==4.11
 
 For open-source LLMs, we will use vllm to accelerate inference.
 ```bash
