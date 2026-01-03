@@ -40,10 +40,15 @@ python codes/eval.py --model_path ${MODEL} --subject ${SUBJECT}
 
 For open-source LLMs, we will use vllm to accelerate inference.
 ```bash
-CUDA_VISIBLE_DEVICES=0 python codes/generate_open.py     --model "/root/codespace/gaozhitao/PSP/experiments/Qwen2.5_7B_KTO_wo_staggered_0101/models/psp_round_1"     --system 'Please reason step by step, and put your final answer within \boxed{}.'     --subject "all"     --tensor_parallel_size 1
+nohup env CUDA_VISIBLE_DEVICES=2 \
+python codes/generate_open.py \
+    --model "/root/codespace/gaozhitao/PSP/experiments/Qwen2.5_7B_KTO_wo_staggered_0101/models/psp_round_1" \
+    --system 'Please reason step by step, and put your final answer within \boxed{}.' \
+    --subject "all" \
+    --tensor_parallel_size 1 > infer_round_1.log 2>&1 &
 ```
 Evaluate
 ```bash
-nohup python codes/eval.py   --model_path "/root/codespace/gaozhitao/PSP_Phys_bmk_eval/UGPhysics/results/Qwen2.5_7B_R1_10_1000_1204_wo_warmup_psp_round_2"   --subject "all"   > eval_Qwen2.5_7B_R1_10_1000_1204_wo_warmup_psp_round_2.log 2>&1 &
+nohup python codes/eval.py   --model_path "/root/codespace/gaozhitao/PSP/experiments/Qwen2.5_7B_KTO_wo_staggered_0101/models/psp_round_1"   --subject "all"   > eval_Qwen2.5_7B_KTO_wo_staggered_0101_round_1.log 2>&1 &
 
 ```
