@@ -1,38 +1,11 @@
-
-
-<h1 align="center">
-    <img src="./imgs/logo.jpg" alt="Logo" style="height: 3em; display: inline-block; vertical-align: middle;"> <br>UGPhysics
-</h1>
-<p align="center">
-    <a href="https://arxiv.org/abs/2502.00334">
-        <img alt="Static Badge" src="https://img.shields.io/badge/Paper-Arxiv-red">
-    </a>
-    <a href="https://huggingface.co/datasets/UGPhysics/ugphysics">
-        <img alt="Static Badge" src="https://img.shields.io/badge/HFDataset-UGPhysics-yellow">
-    </a>
-</p>
-
-## 🔥News
-
-- *2025-05-01*: UGPhysics is accepted to ICML 2025.
-- *2025-02-01*: We have released the UGPhysics dataset and Our Paper on Arxiv.
-
-------
-
-
-*UGPhysics is a large-scale and comprehensive benchmark tailored for evaluating the physics problem-solving abilities of LLMs across multiple UnderGraduate-level Physics (UGPhysics) disciplines, comprising 5,520 distinct problems in three main domains, 13 core subjects, and 59 key topics.*
-
-![HeadPicture](./imgs/overview.jpg)
-
-## 🏆 Leaderboard
-coming soon!
-
 ## 🫵🏻 Test your own model
 
 #### Download Data
 ```bash
-git clone https://huggingface.co/datasets/UGPhysics/ugphysics
-mv ugphysics/* ./data/
+huggingface-cli download UGPhysics/ugphysics \
+  --repo-type dataset \
+  --local-dir ./data \
+  --local-dir-use-symlinks False
 ```
 
 #### Export Your Key
@@ -63,16 +36,14 @@ Remember to export your keys as mentioned above.
 python codes/eval.py --model_path ${MODEL} --subject ${SUBJECT} 
 ```
 
-## 💬 Citation
-Thanks for the open source code of [OlympiadBench](https://github.com/OpenBMB/OlympiadBench) and [OlympicArena](https://github.com/GAIR-NLP/OlympicArena).
-Our `README.md` is adapted from [OmniMath](https://github.com/KbsdJames/Omni-MATH).
 
-If you find our work interesting and meaningful, welcome to give a 🌟 to our repo and cite our paper.
+
+For open-source LLMs, we will use vllm to accelerate inference.
+```bash
+CUDA_VISIBLE_DEVICES=0 python codes/generate_open.py     --model "/root/codespace/gaozhitao/PSP/experiments/Qwen2.5_7B_KTO_wo_staggered_0101/models/psp_round_1"     --system 'Please reason step by step, and put your final answer within \boxed{}.'     --subject "all"     --tensor_parallel_size 1
 ```
-@article{xu2025ugphysics,
-  title={UGPhysics: A Comprehensive Benchmark for Undergraduate Physics Reasoning with Large Language Models},
-  author={Xu, Xin and Xu, Qiyun and Xiao, Tong and Chen, Tianhao and Yan, Yuchen and Zhang, Jiaxin and Diao, Shizhe and Yang, Can and Wang, Yang},
-  journal={arXiv preprint arXiv:2502.00334},
-  year={2025}
-}
+Evaluate
+```bash
+nohup python codes/eval.py   --model_path "/root/codespace/gaozhitao/PSP_Phys_bmk_eval/UGPhysics/results/Qwen2.5_7B_R1_10_1000_1204_wo_warmup_psp_round_2"   --subject "all"   > eval_Qwen2.5_7B_R1_10_1000_1204_wo_warmup_psp_round_2.log 2>&1 &
+
 ```

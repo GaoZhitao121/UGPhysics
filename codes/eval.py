@@ -12,6 +12,11 @@ from collections import defaultdict
 from judge import Judger
 import pandas as pd
 
+os.environ["https_proxy"] = ""
+os.environ["http_proxy"]  = ""
+os.environ["OPENAI_BASE_URL"] = "http://yy.dbh.baidu-int.com/v1"  
+os.environ["OPENAI_API_KEY"] = "sk-HsDcdnIrzLa2ywPYZsYESgsJhohPiw8SgvZ7zY8phJlARIeT"
+
 ugphysics_judger = Judger(strict_extract=True)
 
 def eval_for_single_item(data_item, precision = 1e-8):
