@@ -147,7 +147,20 @@ if __name__ == "__main__":
                         default="You are a helpful assistant.") 
 
     args = parser.parse_args()
-    out_dir = os.path.join(args.output_dir, args.model.split("/")[-1])
+    # out_dir = os.path.join(args.output_dir, args.model.split("/")[-1])
+    model_path_abs = os.path.abspath(args.model).rstrip("/")
+    parts = model_path_abs.split("/")
+
+    # parts[-3] 是实验名 (例如 Qwen2.5_7B_KTO_staggered_wo_a_0104)
+    # parts[-1] 是轮次名 (例如 psp_round_1)
+    exp_name = parts[-3]
+    round_name = parts[-1]
+
+    folder_name = f"{exp_name}_{round_name}"
+    out_dir = os.path.join(args.output_dir, folder_name)
+
+    # 打印一下确认路径正确
+    print(f"Saving results to: {out_dir}")
     mkdir(out_dir)
     print(out_dir)
 

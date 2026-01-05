@@ -15,7 +15,13 @@ import pandas as pd
 os.environ["https_proxy"] = ""
 os.environ["http_proxy"]  = ""
 os.environ["OPENAI_BASE_URL"] = "http://yy.dbh.baidu-int.com/v1"  
-os.environ["OPENAI_API_KEY"] = "sk-HsDcdnIrzLa2ywPYZsYESgsJhohPiw8SgvZ7zY8phJlARIeT"
+os.environ["OPENAI_API_KEY"] = "sk-s8NRXPyriHxlW5UCXWTKAaK6dYMzHrw5GzHxQn3y9zPahm2n"
+
+# os.environ["https_proxy"] = "https://agent.baidu.com:8891"
+# os.environ["http_proxy"]  = "http://agent.baidu.com:8891"
+# os.environ["OPENAI_BASE_URL"] = "https://api.qingyuntop.top/v1"  
+# os.environ["OPENAI_API_KEY"] = "sk-NAKH2KjEcrfJyRdUxa5Ck52KVXRIJ1K6m5wuOIN6jXGizxg1"
+
 
 ugphysics_judger = Judger(strict_extract=True)
 
@@ -296,7 +302,17 @@ if __name__ == "__main__":
     parser.add_argument('--output_dir', type=str, default="./results/")
     parser.add_argument('--precision', type=float, default=1e-2)
     args = parser.parse_args()
-    out_dir = os.path.join(args.output_dir, args.model_path.split("/")[-1])
+    # out_dir = os.path.join(args.output_dir, args.model_path.split("/")[-1])
+    model_path_abs = os.path.abspath(args.model_path).rstrip("/")
+    parts = model_path_abs.split("/")
+
+    # parts[-3] 是实验名 (例如 Qwen2.5_7B_KTO_staggered_wo_a_0104)
+    # parts[-1] 是轮次名 (例如 psp_round_1)
+    exp_name = parts[-3]
+    round_name = parts[-1]
+
+    folder_name = f"{exp_name}_{round_name}"
+    out_dir = os.path.join(args.output_dir, folder_name)
 
     if args.subject == "all":
         all_data = []

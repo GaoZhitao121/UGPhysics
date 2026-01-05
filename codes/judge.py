@@ -22,7 +22,7 @@ def initialize_client():
     client = OpenAI(http_client=httpx_client)
 
 class Judger:
-    def __init__(self, strict_extract=True, judge_model="gpt-4o-2024-08-06"):
+    def __init__(self, strict_extract=True, judge_model="gpt-4.1"):
         self.judgment_methods = {
             "MC": self.judge_MC,
             "TF": self.judge_TF,
